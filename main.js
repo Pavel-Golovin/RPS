@@ -1,14 +1,6 @@
 const field = document.querySelector('.search__input');
-
-const debounce = (fn, debounceTime) => {
-  let isDebounced;
-  return function() {
-    const context = this;
-    const args = arguments;
-    clearTimeout(isDebounced);
-    isDebounced = setTimeout(()=>fn.apply(context, args), debounceTime);
-  }
-}
+const dataList = document.querySelector('.search__autocomplete');
+let lastTimeout;
 
 const getRepositories = async (value) => {
   try {
@@ -20,10 +12,26 @@ const getRepositories = async (value) => {
   }
 }
 
-const fieldInputHandler = async (evt) => {
-  const target = evt.target;
-  const result = await getRepositories(target.value);
-  console.log(result)
+const renderAutoComplete = (repo) => {
+  const [repoOwner, repoName, repoStars] = [...repo["full_name"].split("/"), repo["watchers"]];
+  const newOption = document.createElement("option");
+  newOption.value = repoName;
+  newOption.dataset.owner = repoOwner;
+  newOption.dataset.stars = repoStars;
+  dataList.append(newOption);
+  newOption.onclick()
+}
+
+const fieldInputHandler = (evt) => {
+  if (lastTimeout) {
+    clearTimeout(lastTimeout)
+  }
+  lastTimeout = setTimeout(async () => {
+    const target = evt.target;
+    const result = await getRepositories(target.value);
+    dataList.innerHTML = "";
+    result.forEach((repo) => renderAutoComplete(repo));
+  }, 300)
 }
 
 field.addEventListener('input', fieldInputHandler);
