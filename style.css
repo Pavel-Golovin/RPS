@@ -1,0 +1,41 @@
+/*
+search
+  search__label
+  search__input
+  search__autocomplete
+
+list
+**/
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+.search {
+  background-color: darkgreen;
+  padding-bottom: 180px;
+}
+
+.search__label {
+  display: block;
+  padding: 20px;
+  text-align: center;
+}
+
+.search,
+.list {
+  width: 350px;
+}
+
+.search__input {
+  margin: auto;
+  width: 200px;
+  padding: 5px 0;
+  font-size: 20px;
+}
+
+.list {
+  outline: 2px dotted green;
+
+}
