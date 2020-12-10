@@ -19,8 +19,12 @@ const clearAllChildNodes = (parentNode) => {
   }
 }
 
-const newOptionClickHandler = (evt) => {
-  const target = evt.target
+const closeBtnClickHandler = (evt) => {
+  let target = evt.target;
+  target.parentElement.remove();
+}
+
+const renderRepoCard = (target) => {
   const newCard = document.createElement('li');
   newCard.classList.add('repo-container__item');
   const name = document.createElement('p');
@@ -36,12 +40,14 @@ const newOptionClickHandler = (evt) => {
   newCard.append(stars);
   newCard.append(closeBtn);
   reposList.append(newCard);
+  closeBtn.addEventListener('click', closeBtnClickHandler);
+}
+
+const newOptionClickHandler = (evt) => {
+  const target = evt.target
+  renderRepoCard(target);
   field.value = "";
   clearAllChildNodes(dataList);
-  closeBtn.addEventListener('click', (evt) => {
-    let btn = evt.target
-    btn.parentElement.remove();
-  })
 }
 
 const renderAutoComplete = (repo) => {
