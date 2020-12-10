@@ -15,22 +15,29 @@ const getRepositories = async (value) => {
 
 const newOptionClickHandler = (evt) => {
   const target = evt.target
-  let newCard = document.createElement('li');
+  const newCard = document.createElement('li');
   newCard.classList.add('repo-container__item');
-  let name = document.createElement('p');
+  const name = document.createElement('p');
   name.textContent = `Name: ${target.textContent}`;
-  let owner = document.createElement('p');
+  const owner = document.createElement('p');
   owner.textContent = `Owner: ${target.dataset.owner}`;
-  let stars = document.createElement('p');
+  const stars = document.createElement('p');
   stars.textContent = `Stars: ${target.dataset.stars}`;
+  const closeBtn = document.createElement('span');
+  closeBtn.classList.add('close-btn');
   newCard.append(name);
   newCard.append(owner);
   newCard.append(stars);
+  newCard.append(closeBtn);
   reposList.append(newCard);
   field.value = "";
   while (dataList.firstChild) {
     dataList.removeChild(dataList.firstChild);
   }
+  closeBtn.addEventListener('click', (evt) => {
+    let btn = evt.target
+    btn.parentElement.remove();
+  })
 }
 
 const renderAutoComplete = (repo) => {
