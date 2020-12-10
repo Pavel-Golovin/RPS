@@ -13,6 +13,12 @@ const getRepositories = async (value) => {
   }
 }
 
+const clearAllChildNodes = (parentNode) => {
+  while (parentNode.firstChild) {
+    parentNode.removeChild(parentNode.firstChild);
+  }
+}
+
 const newOptionClickHandler = (evt) => {
   const target = evt.target
   const newCard = document.createElement('li');
@@ -31,9 +37,7 @@ const newOptionClickHandler = (evt) => {
   newCard.append(closeBtn);
   reposList.append(newCard);
   field.value = "";
-  while (dataList.firstChild) {
-    dataList.removeChild(dataList.firstChild);
-  }
+  clearAllChildNodes(dataList);
   closeBtn.addEventListener('click', (evt) => {
     let btn = evt.target
     btn.parentElement.remove();
@@ -58,9 +62,7 @@ const fieldInputHandler = (evt) => {
   lastTimeout = setTimeout(async () => {
     const target = evt.target;
     const result = await getRepositories(target.value);
-    while (dataList.firstChild) {
-      dataList.removeChild(dataList.firstChild);
-    }
+    clearAllChildNodes(dataList);
     result.forEach((repo) => renderAutoComplete(repo));
   }, 300)
 }
