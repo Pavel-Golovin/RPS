@@ -59,22 +59,22 @@ const renderAutocompleteItem = (repo) => {
   newOption.addEventListener("click", newOptionClickHandler);
 }
 
-const renderAutocomplete = (repos) => {
+const renderAutocomplete = async (evt) => {
+  const target = evt.target;
+  const repos = await getRepositories(target.value);
   repos.forEach((repo) => renderAutocompleteItem(repo));
 }
 
-const nameFoo = async (evt) => {
-  const target = evt.target;
-  const repos = await getRepositories(target.value);
+const updateAutocomplete = async (evt) => {
   clearAllChildNodes(dataList);
-  renderAutocomplete(repos);
+  await renderAutocomplete(evt);
 }
 
 const fieldInputHandler = (evt) => {
   if (lastTimeout) {
     clearTimeout(lastTimeout)
   }
-  lastTimeout = setTimeout(() => nameFoo(evt), 300)
+  lastTimeout = setTimeout(() => updateAutocomplete(evt), 300)
 }
 
 field.addEventListener('input', fieldInputHandler);
