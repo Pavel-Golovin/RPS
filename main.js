@@ -48,7 +48,7 @@ const newOptionClickHandler = (evt) => {
   clearAllChildNodes(dataList);
 }
 
-const renderAutoComplete = (repo) => {
+const renderAutocompleteItem = (repo) => {
   const [repoOwner, repoName, repoStars] = [...repo["full_name"].split("/"), repo["watchers"]];
   const newOption = document.createElement("li");
   newOption.classList.add("repo-list__item");
@@ -59,16 +59,22 @@ const renderAutoComplete = (repo) => {
   newOption.addEventListener("click", newOptionClickHandler);
 }
 
+const renderAutocomplete = (repos) => {
+  repos.forEach((repo) => renderAutocompleteItem(repo));
+}
+
+const nameFoo = async (evt) => {
+  const target = evt.target;
+  const repos = await getRepositories(target.value);
+  clearAllChildNodes(dataList);
+  renderAutocomplete(repos);
+}
+
 const fieldInputHandler = (evt) => {
   if (lastTimeout) {
     clearTimeout(lastTimeout)
   }
-  lastTimeout = setTimeout(async () => {
-    const target = evt.target;
-    const result = await getRepositories(target.value);
-    clearAllChildNodes(dataList);
-    result.forEach((repo) => renderAutoComplete(repo));
-  }, 300)
+  lastTimeout = setTimeout(() => nameFoo(evt), 300)
 }
 
 field.addEventListener('input', fieldInputHandler);
