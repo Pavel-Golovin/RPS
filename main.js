@@ -14,9 +14,7 @@ const getRepositories = async (value) => {
 }
 
 const clearAllChildNodes = (parentNode) => {
-  while (parentNode.firstChild) {
-    parentNode.removeChild(parentNode.firstChild);
-  }
+  parentNode.innerHTML = "";
 }
 
 const closeBtnClickHandler = (evt) => {
