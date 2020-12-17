@@ -17,8 +17,19 @@
   </div>
 
   <div class="repo-container">
-    <ul class="repo-container__list"></ul>
+    <ul class="cards__list cards"></ul>
   </div>
-  <script src="main.js"></script>
+
+  <template id="cardTemplate">
+    <li class="cards__item card">
+      <p class="card__name"></p>
+      <p class="card__owner"></p>
+      <p class="card__stars"></p>
+      <span class="card__close-btn"></span>
+    </li>
+  </template>
+
+  <script src="js/load.js"></script>
+  <script src="js/main.js"></script>
 </body>
 </html>
