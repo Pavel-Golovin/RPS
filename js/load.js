@@ -1,6 +1,7 @@
 'use strict';
 
 (() => {
+
   window.loadRepositories = async (value) => {
     try {
       const response = await fetch(`https://api.github.com/search/repositories?q=${value}`)
@@ -10,4 +11,5 @@
       return [];
     }
   }
+
 })();
