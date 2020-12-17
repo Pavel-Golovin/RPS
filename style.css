@@ -52,23 +52,24 @@ p {
   padding: 30px;
 }
 
-.repo-container__list {
+.cards__list {
   width: 250px;
   background-color: deeppink;
   margin: auto;
 }
 
-.repo-container__item {
+.card {
   padding: 5px;
   border: 1px solid darkgreen;
   position: relative;
 }
-.repo-container__list p {
+
+.card p {
   font-size: 20px;
   word-wrap: break-word;
 }
 
-.close-btn {
+.card__close-btn {
   display: block;
   position: absolute;
   top: 5px;
