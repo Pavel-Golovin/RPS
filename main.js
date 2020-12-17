@@ -70,11 +70,15 @@ const updateAutocomplete = async (evt) => {
   await renderAutocomplete(evt);
 }
 
-const fieldInputHandler = (evt) => {
+const debounce = (callback, evt) => {
   if (lastTimeout) {
     clearTimeout(lastTimeout)
   }
-  lastTimeout = setTimeout(() => updateAutocomplete(evt), 300)
+  lastTimeout = setTimeout(() => callback(evt), 300)
+}
+
+const fieldInputHandler = (evt) => {
+  debounce(updateAutocomplete, evt);
 }
 
 field.addEventListener('input', fieldInputHandler);
